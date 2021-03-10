@@ -2,6 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinNotesApp.MainPage">
+    
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="New" Clicked="New_Clicked" />
+        </ContentPage.ToolbarItems>
 
     <StackLayout>
         <CollectionView ItemsSource="{Binding Notes}"
@@ -10,26 +14,48 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10"
-                      RowDefinitions="Auto, *"
-                      ColumnDefinitions="Auto, *">
-                        <Label Grid.Column="1"
-                           Text="{Binding Title}"
-                           FontAttributes="Bold" />
-                        <Label Grid.Row="1"
-                           Grid.Column="1"
-                           Text="{Binding Detail}"
-                           VerticalOptions="End" />
-                    </Grid>
+
+                    <Frame BorderColor="AliceBlue" >
+
+                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                         </Grid.ColumnDefinitions>
+
+                            <Button Text="X" 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                    WidthRequest="30"
+                                    FontSize="18"/>
+                            <Label Grid.Column="2"
+                                   Grid.Row="1"
+                                   Text="{Binding Title}"
+                                   FontAttributes="Bold" />
+                            <Label Grid.Column="2"
+                                   Grid.Row="2"
+                                   Text="{Binding Detail}"
+                                   VerticalOptions="End" />
+                        </Grid>
+
+                    </Frame>
+                        
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         
         </CollectionView>
+        
         <Label Text="Create new note" />
-        <Editor x:Name="titleField"
+        <Entry x:Name="TitleField"
+                Text="{Binding titleField, Mode=TwoWay}"
                 Placeholder="Enter title here"/>
-        <Editor x:Name="detailField"
+        <Entry x:Name="DetailField"
+                Text="{Binding detailField, Mode=TwoWay}"
                 Placeholder="Enter details here"/>
-        <Button Text="Add new note" Clicked="onClicked" />
+        <Button Text="Save new note" Clicked="OnClicked" />
     </StackLayout>
 </ContentPage>
