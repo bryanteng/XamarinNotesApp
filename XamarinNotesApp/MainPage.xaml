@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinNotesApp.MainPage">
-    
+
         <ContentPage.ToolbarItems>
             <ToolbarItem Text="New" Clicked="New_Clicked" />
         </ContentPage.ToolbarItems>
@@ -52,10 +52,14 @@
         <Label Text="Create new note" />
         <Entry x:Name="TitleField"
                 Text="{Binding titleField, Mode=TwoWay}"
+                TextChanged="OnEntryTextChanged"
+                Completed="OnEntryCompleted"    
                 Placeholder="Enter title here"/>
         <Entry x:Name="DetailField"
                 Text="{Binding detailField, Mode=TwoWay}"
-                Placeholder="Enter details here"/>
+                Placeholder="Enter details here"
+                TextChanged="OnEntryTextChanged"
+                Completed="OnEntryCompleted" />
         <Button Text="Save new note" Clicked="OnClicked" />
     </StackLayout>
 </ContentPage>

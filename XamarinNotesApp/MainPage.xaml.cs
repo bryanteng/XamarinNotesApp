@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace XamarinNotesApp
 {
     public partial class MainPage : ContentPage
     {
-        public IList<Note> Notes { get; set; }
+        public ObservableCollection<Note> Notes { get; set; }
         public string titleField { get; set; }
 
         public string detailField { get; set; }
@@ -17,7 +18,7 @@ namespace XamarinNotesApp
             titleField = "Enter title here";
             detailField = "Enter detail here";
 
-            Notes = new List<Note>();
+            Notes = new ObservableCollection<Note>();
             Notes.Add(new Note
             {
                 Title = "Chores",
@@ -42,15 +43,25 @@ namespace XamarinNotesApp
             Navigation.PushAsync(new NewEntryPage());
         }
 
+        void OnEntryTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string oldText = e.OldTextValue;
+            string newText = e.NewTextValue;
+            System.Console.WriteLine(newText);
+        }
+
+        void OnEntryCompleted(object sender, System.EventArgs e)
+        {
+            string text = ((Entry)sender).Text;
+        }
+
         public void OnClicked(object sender, System.EventArgs e)
         {
-            Notes.Add(new Note
-            {
-                Title = titleField,
-                Detail = detailField
-            });
+            Note temp = new Note() { Title = titleField, Detail = detailField };
+            Notes.Add(temp); 
             titleField = "Enter title here";
             detailField = "Enter detail here";
+            System.Console.WriteLine(Notes.Count);
         }
     }
 }
